@@ -67,9 +67,8 @@ function addTask(text, completed = false) {
 		acceptButon.addEventListener('click', function () {
 			modalMessageAccept.style.display = 'none'
 			li.remove()
-
-			succesModal.style.display = 'flex'
 			updateStorage()
+			succesModal.style.display = 'flex'
 			successButton.addEventListener('click', function () {
 				succesModal.style.display = 'none'
 			})
@@ -84,5 +83,14 @@ function addTask(text, completed = false) {
 	taskList.appendChild(li)
 }
 
-
+function updateStorage() {
+	const tasks = [];
+	document.querySelectorAll('#task-list li').forEach(li => {
+		tasks.push({
+			text: li.querySelector('span').textContent,
+			completed: li.classList.contains('done')
+		})
+	})
+	localStorage.setItem('tasks', JSON.stringify(tasks))
+}
 
